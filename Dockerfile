@@ -22,5 +22,3 @@ COPY --from=stage-buildenv /opt/zapcc /opt/zapcc
 ENV PATH /opt/zapcc/bin:$PATH
 ENV CC zapcc
 ENV CXX zapcc++
-
-WORKDIR /root
