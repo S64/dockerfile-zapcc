@@ -12,7 +12,7 @@ RUN mkdir -p /opt/zapcc
 WORKDIR /opt/zapcc
 
 RUN cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_WARNINGS=OFF /tmp/workdir/llvm
-RUN ninja -j
+RUN ninja -j$(nproc)
 
 ENV PATH /opt/zapcc/bin:$PATH
 ENV CC zapcc
