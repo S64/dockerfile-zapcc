@@ -7,9 +7,15 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python2.7 1
 
 RUN mkdir -p /tmp/workdir
 RUN git clone https://github.com/yrnkrn/zapcc.git /tmp/workdir/llvm
-RUN mkdir -p /tmp/workdir/build
 
-WORKDIR /tmp/workdir/build
+RUN mkdir -p /opt/zapcc
+WORKDIR /opt/zapcc
 
-RUN cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_WARNINGS=OFF ../llvm
-RUN ninja
+RUN cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_WARNINGS=OFF /tmp/workdir/llvm
+RUN ninja -j
+
+ENV PATH /opt/zapcc/bin:$PATH
+ENV CC zapcc
+ENV CXX zapcc++
+
+WORKDIR /root
